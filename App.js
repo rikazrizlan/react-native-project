@@ -6,7 +6,8 @@ import RegisterScreen from './components/auth/Register';
 import LoginScreen from './components/auth/Login';
 import {View, Text, Button} from 'react-native';
 import {auth} from './config/firebase';
-import MainScreen, { Main } from './components/Main';
+import MainScreen from './components/Main';
+import AddPostScreen from './components/main/AddPost';
 
 // to connect redux and react native
 import { Provider } from 'react-redux';
@@ -24,7 +25,6 @@ export class App extends Component {
     this.state = {
       loaded: false
     }
-    this.onSignOut = this.onSignOut.bind(this);
   }
 
   componentDidMount() {
@@ -67,9 +67,13 @@ export class App extends Component {
    
     return (
       <Provider store={store}>
-         <MainScreen />
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="Main">
+            <Stack.Screen name="Main" component={MainScreen} options={{headerShown: false}} />
+            <Stack.Screen name="AddPost" component={AddPostScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
       </Provider>
-     
     )
   }
 }
